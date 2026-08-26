@@ -1,594 +1,2059 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact &amp; Book a Fitting | Aurelia Heels</title>
-<meta name="description" content="Get in touch with Aurelia Heels to book a fitting, ask about sizing, or start a custom order. Visit our Colombo atelier or reach us online — we reply within 24 hours.">
-<meta name="keywords" content="contact Aurelia Heels, book a bridal shoe fitting, bridal shoe sizing help, Colombo bridal atelier">
-<meta name="author" content="Aurelia Heels">
-<link rel="canonical" href="https://example.com/contact.html">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Contact &amp; Book a Fitting | Aurelia Heels">
-<meta property="og:description" content="Book a fitting, ask about sizing, or start a custom order with our Colombo bridal atelier.">
-<meta property="og:image" content="images/hero.jpg">
-<meta property="og:url" content="https://example.com/contact.html">
-<meta name="twitter:card" content="summary_large_image">
+  <title>Contact & Order | Aurelia Heels</title>
 
-<link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="apple-touch-icon" href="images/favicon.png">
+  <meta name="description"
+        content="Contact Aurelia Heels and place your bridal shoe order. Send your shoe size, wedding date and order details.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <meta name="keywords"
+        content="Aurelia Heels, bridal shoes, wedding shoes, bridal heels, Sri Lanka">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/responsive.css">
+  <meta name="author" content="Aurelia Heels">
 
-<!--
-  Page-specific styles for the contact form and info panel. Scoped and
-  additive so they sit cleanly on top of the shared css/style.css.
--->
-<style>
-  .contact-layout {
-    display: grid;
-    grid-template-columns: 0.9fr 1.1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-  @media (max-width: 900px) {
-    .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-  }
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <link rel="apple-touch-icon" href="images/logo.png">
 
-  .contact-info-card {
-    background: var(--white, #fff);
-    border-radius: 14px;
-    padding: 2.2rem;
-    box-shadow: 0 10px 30px rgba(58,46,43,0.08);
-  }
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  .contact-detail-list {
-    list-style: none;
-    margin: 1.4rem 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1.1rem;
-  }
-  .contact-detail-list li {
-    display: flex;
-    gap: 0.85rem;
-    align-items: flex-start;
-    font-size: 0.95rem;
-    color: var(--plum-soft, #6b5a52);
-  }
-  .contact-detail-list .icon {
-    flex-shrink: 0;
-    width: 22px;
-    height: 22px;
-    color: var(--gold, #c6a15b);
-    margin-top: 2px;
-  }
-  .contact-detail-list strong {
-    display: block;
-    color: var(--plum, #3a2e2b);
-    font-family: var(--font-display, 'Playfair Display', serif);
-    font-weight: 600;
-    font-size: 1rem;
-    margin-bottom: 0.15rem;
-  }
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
 
-  .contact-hours {
-    margin-top: 1.6rem;
-    padding-top: 1.6rem;
-    border-top: 1px solid rgba(58,46,43,0.1);
-  }
-  .contact-hours h4 {
-    font-family: var(--font-display, 'Playfair Display', serif);
-    font-size: 1rem;
-    margin-bottom: 0.6rem;
-  }
-  .contact-hours dl {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.35rem 1rem;
-    font-size: 0.88rem;
-    color: var(--plum-soft, #6b5a52);
-  }
-  .contact-hours dt { font-weight: 500; color: var(--plum, #3a2e2b); }
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
 
-  .map-embed {
-    margin-top: 1.6rem;
-    border-radius: 10px;
-    overflow: hidden;
-    aspect-ratio: 16 / 10;
-  }
-  .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
 
-  /* ---- Form ---- */
-  .contact-form-card {
-    background: var(--white, #fff);
-    border-radius: 14px;
-    padding: 2.2rem;
-    box-shadow: 0 10px 30px rgba(58,46,43,0.08);
-  }
+  <!-- =========================================================
+       PAGE SPECIFIC CSS
+  ========================================================== -->
 
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-  }
-  @media (max-width: 520px) {
-    .form-row { grid-template-columns: 1fr; }
-  }
+  <style>
 
-  .field {
-    margin-bottom: 1.3rem;
-    position: relative;
-  }
-  .field label {
-    display: block;
-    font-size: 0.78rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--plum-soft, #6b5a52);
-    margin-bottom: 0.4rem;
-  }
-  .field .required { color: #b1494a; }
+    /* =========================================================
+       SIZE MEASUREMENT
+    ========================================================== */
 
-  .field input,
-  .field select,
-  .field textarea {
-    width: 100%;
-    font-family: var(--font-body, 'Poppins', sans-serif);
-    font-size: 0.95rem;
-    padding: 0.8rem 1rem;
-    border: 1px solid rgba(58,46,43,0.15);
-    border-radius: 6px;
-    background: #fbf7f2;
-    color: var(--plum, #3a2e2b);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease;
-  }
-  .field textarea { resize: vertical; min-height: 130px; }
-  .field input:focus,
-  .field select:focus,
-  .field textarea:focus {
-    outline: none;
-    border-color: var(--gold, #c6a15b);
-    box-shadow: 0 0 0 3px rgba(198,161,91,0.18);
-  }
-  .field input[aria-invalid="true"],
-  .field select[aria-invalid="true"],
-  .field textarea[aria-invalid="true"] {
-    border-color: #b1494a;
-  }
+    .size-steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
 
-  .field-error {
-    display: block;
-    min-height: 1.1em;
-    font-size: 0.78rem;
-    color: #b1494a;
-    margin-top: 0.35rem;
-  }
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-  .form-note {
-    font-size: 0.82rem;
-    color: var(--plum-soft, #6b5a52);
-    margin-bottom: 1.4rem;
-  }
+    .size-steps li {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
 
-  .form-status {
-    display: none;
-    margin-top: 1rem;
-    padding: 0.9rem 1.1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-  }
-  .form-status.is-success {
-    display: block;
-    background: #e9f3ea;
-    color: #3a6b45;
-    border: 1px solid #bfe0c4;
-  }
-  .form-status.is-error {
-    display: block;
-    background: #f7e9e9;
-    color: #8a3a3b;
-    border: 1px solid #e4bcbc;
-  }
+    .size-steps .step-num {
+      flex-shrink: 0;
 
-  .checkbox-field {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-    margin-bottom: 1.4rem;
-    font-size: 0.85rem;
-    color: var(--plum-soft, #6b5a52);
-  }
-  .checkbox-field input { width: auto; margin-top: 0.2rem; }
-</style>
+      width: 34px;
+      height: 34px;
+
+      border-radius: 50%;
+
+      background: var(--gold, #c6a15b);
+      color: #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .size-steps h4 {
+      font-family: var(--font-display, 'Playfair Display', serif);
+      font-size: 1.02rem;
+
+      margin-bottom: 0.3rem;
+    }
+
+    .size-steps p {
+      font-size: 0.92rem;
+
+      color: var(--plum-soft, #6b5a52);
+
+      margin: 0;
+    }
+
+    .size-note {
+      margin-top: 1.6rem;
+
+      padding: 1rem 1.2rem;
+
+      background: #fbf7f2;
+
+      border-left: 3px solid var(--gold, #c6a15b);
+
+      border-radius: 4px;
+
+      font-size: 0.88rem;
+
+      color: var(--plum-soft, #6b5a52);
+    }
+
+
+    /* =========================================================
+       CONTACT LAYOUT
+    ========================================================== */
+
+    .contact-layout {
+      display: grid;
+
+      grid-template-columns: 0.85fr 1.15fr;
+
+      gap: 4rem;
+
+      align-items: start;
+    }
+
+
+    /* =========================================================
+       CONTACT INFO CARD
+    ========================================================== */
+
+    .contact-info-card {
+      background: var(--white, #fff);
+
+      border-radius: 14px;
+
+      padding: 2.2rem;
+
+      box-shadow: 0 10px 30px rgba(58, 46, 43, 0.08);
+    }
+
+    .contact-detail-list {
+      list-style: none;
+
+      margin: 1.4rem 0 0;
+
+      padding: 0;
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 1.1rem;
+    }
+
+    .contact-detail-list li {
+      display: flex;
+
+      gap: 0.85rem;
+
+      align-items: flex-start;
+
+      font-size: 0.95rem;
+
+      color: var(--plum-soft, #6b5a52);
+    }
+
+    .contact-detail-list .icon {
+      flex-shrink: 0;
+
+      width: 22px;
+      height: 22px;
+
+      color: var(--gold, #c6a15b);
+
+      margin-top: 2px;
+    }
+
+    .contact-detail-list strong {
+      display: block;
+
+      color: var(--plum, #3a2e2b);
+
+      font-family: var(--font-display, 'Playfair Display', serif);
+
+      font-weight: 600;
+
+      font-size: 1rem;
+
+      margin-bottom: 0.15rem;
+    }
+
+
+    /* =========================================================
+       STORE BADGE
+    ========================================================== */
+
+    .store-badge {
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 0.4rem;
+
+      margin-top: 1.6rem;
+
+      padding: 0.5rem 1rem;
+
+      border-radius: 999px;
+
+      background: #fbf7f2;
+
+      border: 1px solid rgba(58, 46, 43, 0.1);
+
+      font-size: 0.8rem;
+
+      letter-spacing: 0.04em;
+
+      color: var(--plum, #3a2e2b);
+    }
+
+    .store-badge .dot {
+      width: 8px;
+      height: 8px;
+
+      border-radius: 50%;
+
+      background: #3a6b45;
+
+      display: inline-block;
+    }
+
+
+    /* =========================================================
+       FORM CARD
+    ========================================================== */
+
+    .contact-form-card {
+      background: var(--white, #fff);
+
+      border-radius: 14px;
+
+      padding: 2.2rem;
+
+      box-shadow: 0 10px 30px rgba(58, 46, 43, 0.08);
+    }
+
+    .form-row {
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 1.2rem;
+    }
+
+
+    /* =========================================================
+       FORM FIELDS
+    ========================================================== */
+
+    .field {
+      margin-bottom: 1.3rem;
+
+      position: relative;
+    }
+
+    .field label {
+      display: block;
+
+      font-size: 0.78rem;
+
+      letter-spacing: 0.06em;
+
+      text-transform: uppercase;
+
+      color: var(--plum-soft, #6b5a52);
+
+      margin-bottom: 0.4rem;
+    }
+
+    .required {
+      color: #b1494a;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+
+      width: 100%;
+
+      font-family: var(--font-body, 'Poppins', sans-serif);
+
+      font-size: 0.95rem;
+
+      padding: 0.8rem 1rem;
+
+      border: 1px solid rgba(58, 46, 43, 0.15);
+
+      border-radius: 6px;
+
+      background: #fbf7f2;
+
+      color: var(--plum, #3a2e2b);
+
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+
+      box-sizing: border-box;
+    }
+
+    .field textarea {
+      resize: vertical;
+
+      min-height: 100px;
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+
+      outline: none;
+
+      border-color: var(--gold, #c6a15b);
+
+      box-shadow:
+        0 0 0 3px rgba(198, 161, 91, 0.18);
+    }
+
+    .field input[aria-invalid="true"],
+    .field select[aria-invalid="true"],
+    .field textarea[aria-invalid="true"] {
+
+      border-color: #b1494a;
+    }
+
+    .field-hint {
+
+      display: block;
+
+      font-size: 0.76rem;
+
+      color: var(--plum-soft, #6b5a52);
+
+      margin-top: 0.35rem;
+    }
+
+    .field-error {
+
+      display: block;
+
+      min-height: 1.1em;
+
+      font-size: 0.78rem;
+
+      color: #b1494a;
+
+      margin-top: 0.35rem;
+    }
+
+
+    /* =========================================================
+       FORM NOTE
+    ========================================================== */
+
+    .form-note {
+
+      font-size: 0.82rem;
+
+      color: var(--plum-soft, #6b5a52);
+
+      margin-bottom: 1.4rem;
+    }
+
+
+    /* =========================================================
+       FORM STATUS
+    ========================================================== */
+
+    .form-status {
+
+      display: none;
+
+      margin-top: 1rem;
+
+      padding: 0.9rem 1.1rem;
+
+      border-radius: 8px;
+
+      font-size: 0.9rem;
+    }
+
+    .form-status.is-success {
+
+      display: block;
+
+      background: #e9f3ea;
+
+      color: #3a6b45;
+
+      border: 1px solid #bfe0c4;
+    }
+
+    .form-status.is-error {
+
+      display: block;
+
+      background: #f7e9e9;
+
+      color: #8a3a3b;
+
+      border: 1px solid #e4bcbc;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 900px) {
+
+      .contact-layout {
+
+        grid-template-columns: 1fr;
+
+        gap: 2.5rem;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+
+      .form-row {
+
+        grid-template-columns: 1fr;
+      }
+
+      .contact-info-card,
+      .contact-form-card {
+
+        padding: 1.5rem;
+      }
+
+      .size-steps li {
+
+        gap: 0.8rem;
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
 
-<div id="loader" aria-hidden="true">
-  <div class="loader-mark">
-    <span>AURELIA</span>
-    <div class="loader-line"></div>
-  </div>
-</div>
 
-<a class="skip-link" href="#main">Skip to content</a>
+  <!-- =========================================================
+       LOADER
+  ========================================================== -->
 
-<header class="site-header">
-  <div class="container">
-    <a href="index.html" class="brand">
-      <img src="images/logo.png" alt="Aurelia Heels logo" width="34" height="34">
-      <span>Aurelia Heels<span class="tagline">Bridal Atelier</span></span>
-    </a>
-    <nav aria-label="Primary">
-      <ul class="nav-list" id="primary-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="collection.html">Collection</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="contact.html" aria-current="page">Contact</a></li>
-      </ul>
-    </nav>
-    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
-<div class="nav-scrim"></div>
+  <div id="loader" aria-hidden="true">
 
-<main id="main">
+    <div class="loader-mark">
 
-  <section class="page-hero">
-    <div class="container">
-      <p class="breadcrumb"><a href="index.html">Home</a> / Contact</p>
-      <span class="eyebrow">We'd Love to Help</span>
-      <h1>Let's Plan Your Fitting</h1>
-      <span class="stitch" aria-hidden="true"></span>
-      <p style="max-width:52ch;margin-inline:auto;color:var(--plum-soft);">Whether you need sizing advice, a custom colour match, or simply aren't sure where to start — send us a note and a stylist will reply within 24 hours.</p>
+      <span>AURELIA</span>
+
+      <div class="loader-line"></div>
+
     </div>
-  </section>
 
-  <!-- ============================= CONTACT INFO + FORM ============================= -->
-  <section>
-    <div class="container contact-layout">
+  </div>
 
-      <!-- ---- Info column ---- -->
-      <div class="reveal">
-        <div class="contact-info-card">
-          <span class="eyebrow">Visit or Reach Us</span>
-          <h2 style="font-size:1.5rem;">The Aurelia Atelier</h2>
-          <span class="stitch" aria-hidden="true"></span>
 
-          <ul class="contact-detail-list">
+  <!-- =========================================================
+       SKIP LINK
+  ========================================================== -->
+
+  <a class="skip-link" href="#main">
+    Skip to content
+  </a>
+
+
+  <!-- =========================================================
+       HEADER
+  ========================================================== -->
+
+  <header class="site-header">
+
+    <div class="container">
+
+      <a href="index.html" class="brand">
+
+        <img
+          src="images/logo.png"
+          alt="Aurelia Heels logo"
+          width="34"
+          height="34"
+        >
+
+        <span>
+          Aurelia Heels
+          <span class="tagline">
+            Bridal Atelier
+          </span>
+        </span>
+
+      </a>
+
+
+      <nav aria-label="Primary">
+
+        <ul class="nav-list" id="primary-nav">
+
+          <li>
+            <a href="index.html">
+              Home
+            </a>
+          </li>
+
+          <li>
+            <a href="about.html">
+              About
+            </a>
+          </li>
+
+          <li>
+            <a href="collection.html">
+              Collection
+            </a>
+          </li>
+
+
+          <li>
+            <a href="contact.html" aria-current="page">
+              Contact
+            </a>
+          </li>
+
+        </ul>
+
+      </nav>
+
+
+      <button
+        class="nav-toggle"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <div class="nav-scrim"></div>
+
+
+  <!-- =========================================================
+       MAIN
+  ========================================================== -->
+
+  <main id="main">
+
+
+    <!-- =======================================================
+         PAGE HERO
+    ======================================================== -->
+
+    <section class="page-hero">
+
+      <div class="container">
+
+        <p class="breadcrumb">
+
+          <a href="index.html">
+            Home
+          </a>
+
+          /
+          Contact
+
+        </p>
+
+
+        <span class="eyebrow">
+          We'd Love to Help
+        </span>
+
+
+        <h1>
+          Let's Plan Your Fitting
+        </h1>
+
+
+        <span
+          class="stitch"
+          aria-hidden="true"
+        ></span>
+
+
+        <p
+          style="
+            max-width:52ch;
+            margin-inline:auto;
+            color:var(--plum-soft);
+          "
+        >
+          Measure your foot at home, then send us your
+          order details — our team will get back to you
+          as soon as possible.
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         HOW TO MEASURE
+    ======================================================== -->
+
+    <section style="background:var(--white);">
+
+      <div class="container">
+
+
+        <div class="section-head reveal">
+
+          <span class="eyebrow">
+            Before You Order
+          </span>
+
+          <h2>
+            How to Measure Your Foot Size
+          </h2>
+
+          <span
+            class="stitch"
+            aria-hidden="true"
+          ></span>
+
+          <p
+            style="
+              max-width:56ch;
+              margin-inline:auto;
+              color:var(--plum-soft);
+            "
+          >
+            Follow these simple steps at home,
+            then send us your measurements in the
+            order form below.
+          </p>
+
+        </div>
+
+
+        <div
+          class="split"
+          style="margin-top:1rem;"
+        >
+
+
+          <!-- LEFT -->
+
+          <div class="split-copy reveal">
+
+            <ol class="size-steps">
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  1
+                </span>
+
+                <div>
+
+                  <h4>
+                    Prepare a flat surface
+                  </h4>
+
+                  <p>
+                    Place a plain sheet of A4 paper
+                    on a hard, flat floor.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  2
+                </span>
+
+                <div>
+
+                  <h4>
+                    Stand naturally
+                  </h4>
+
+                  <p>
+                    Step onto the paper with your
+                    full body weight on that foot.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  3
+                </span>
+
+                <div>
+
+                  <h4>
+                    Trace your foot
+                  </h4>
+
+                  <p>
+                    Hold the pen upright and carefully
+                    trace around your entire foot.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  4
+                </span>
+
+                <div>
+
+                  <h4>
+                    Repeat for the other foot
+                  </h4>
+
+                  <p>
+                    Trace both feet because they can
+                    differ slightly in size.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  5
+                </span>
+
+                <div>
+
+                  <h4>
+                    Measure length and width
+                  </h4>
+
+                  <p>
+                    Measure from heel to longest toe
+                    and across the widest point.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+              <li>
+
+                <span
+                  class="step-num"
+                  aria-hidden="true"
+                >
+                  6
+                </span>
+
+                <div>
+
+                  <h4>
+                    Enter your size in the form
+                  </h4>
+
+                  <p>
+                    Use your measurement to fill in the
+                    shoe size field with your order.
+                  </p>
+
+                </div>
+
+              </li>
+
+
+            </ol>
+
+
+            <p class="size-note">
+
+              <strong>Tip:</strong>
+              Trace your foot while barefoot or
+              wearing thin socks for a clearer outline.
+
+            </p>
+
+          </div>
+
+
+          <!-- RIGHT -->
+
+          <div class="split-visual reveal framed">
+
+            <img
+              src="images/size-chart.jpeg"
+              alt="Aurelia Heels shoe size chart"
+              width="700"
+              height="700"
+              loading="lazy"
+            >
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         CONTACT + ORDER
+    ======================================================== -->
+
+    <section>
+
+      <div class="container contact-layout">
+
+
+        <!-- ===================================================
+             CONTACT INFORMATION
+        ==================================================== -->
+
+        <div class="reveal">
+
+          <div class="contact-info-card">
+
+            <span class="eyebrow">
+              Reach Us Online
+            </span>
+
+
+            <h2 style="font-size:1.5rem;">
+              Aurelia Heels
+            </h2>
+
+
+            <span
+              class="stitch"
+              aria-hidden="true"
+            ></span>
+
+
+            <ul class="contact-detail-list">
+
+
+              <!-- LOCATION -->
+
+              <li>
+
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                  />
+
+                  <path
+                    d="M3 12h18"
+                  />
+
+                  <path
+                    d="M12 3c2.5 2.5 4 6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-6-4-9s1.5-6.5 4-9z"
+                  />
+
+                </svg>
+
+
+                <span>
+
+                  <strong>
+                    Location
+                  </strong>
+
+                  Online Store — We deliver island-wide(Free).
+
+                </span>
+
+              </li>
+
+
+              <!-- EMAIL -->
+
+              <li>
+
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+
+                  <path d="M3 5h18v14H3z"/>
+
+                  <path d="M3 6l9 7 9-7"/>
+
+                </svg>
+
+
+                <span>
+
+                  <strong>
+                    Email
+                  </strong>
+
+                  <a
+                    href="mailto:aureliaheels8@gmail.com"
+                    style="color:inherit;"
+                  >
+                    aureliaheels8@gmail.com
+                  </a>
+
+                </span>
+
+              </li>
+
+
+              <!-- PHONE -->
+
+              <li>
+
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+
+                  <path
+                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"
+                  />
+
+                </svg>
+
+
+                <span>
+
+                  <strong>
+                    Phone / WhatsApp
+                  </strong>
+
+                  <a
+                    href="https://wa.me/+94763717222"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="color:inherit;"
+                  >
+                    0763717222
+                  </a>
+
+                </span>
+
+              </li>
+
+
+              <!-- AVAILABILITY -->
+
+              <li>
+
+                <svg
+                  class="icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="9"
+                  />
+
+                  <path
+                    d="M12 7v5l3 3"
+                  />
+
+                </svg>
+
+
+                <span>
+
+                  <strong>
+                    Availability
+                  </strong>
+
+                  24 hours open.
+
+                </span>
+
+              </li>
+
+
+            </ul>
+
+
+            <span class="store-badge">
+
+              <span
+                class="dot"
+                aria-hidden="true"
+              ></span>
+
+              Accepting orders now
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- ===================================================
+             ORDER FORM
+        ==================================================== -->
+
+        <div class="reveal">
+
+          <div class="contact-form-card">
+
+            <span class="eyebrow">
+              Place Your Order
+            </span>
+
+
+            <h2 style="font-size:1.5rem;">
+              Tell Us About Your Shoes
+            </h2>
+
+
+            <span
+              class="stitch"
+              aria-hidden="true"
+            ></span>
+
+
+            <p class="form-note">
+
+              Fields marked
+              <span class="required">*</span>
+              are required.
+
+              Your details will be sent securely
+              to <strong>aureliaheels8@gmail.com</strong>.
+
+            </p>
+
+
+            <!-- =================================================
+                 FORMSPREE ORDER FORM
+
+                 Your Formspree endpoint:
+                 https://formspree.io/f/xqpzdpwk
+            ================================================== -->
+
+            <form
+              id="aurelia-order-form"
+              action="https://formspree.io/f/xqpzdpwk"
+              method="POST"
+              novalidate
+            >
+
+
+              <!-- FULL NAME -->
+
+              <div class="field">
+
+                <label for="of-name">
+
+                  Full Name
+                  <span class="required">*</span>
+
+                </label>
+
+                <input
+                  type="text"
+                  id="of-name"
+                  name="name"
+                  autocomplete="name"
+                  placeholder="Enter your full name"
+                  required
+                >
+
+                <span
+                  class="field-error"
+                  id="of-name-error"
+                ></span>
+
+              </div>
+
+
+
+              <!-- CONTACT NUMBERS -->
+
+              <div class="form-row">
+
+
+                <div class="field">
+
+                  <label for="of-contact1">
+
+                    Contact Number 1
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    type="tel"
+                    id="of-contact1"
+                    name="contact1"
+                    autocomplete="tel"
+                    placeholder="07X XXX XXXX"
+                    required
+                  >
+
+                  <span
+                    class="field-error"
+                    id="of-contact1-error"
+                  ></span>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="of-contact2">
+
+                    Contact Number 2
+
+                  </label>
+
+                  <input
+                    type="tel"
+                    id="of-contact2"
+                    name="contact2"
+                    placeholder="Optional"
+                  >
+
+                  <span
+                    class="field-error"
+                    id="of-contact2-error"
+                  ></span>
+
+                </div>
+
+
+              </div>
+
+
+
+              <!-- DELIVERY ADDRESS -->
+
+              <div class="field">
+
+                <label for="of-address">
+
+                  Delivery Address
+                  <span class="required">*</span>
+
+                </label>
+
+                <textarea
+                  id="of-address"
+                  name="deliveryAddress"
+                  placeholder="House / Street / City / District / Postal Code"
+                  required
+                ></textarea>
+
+                <span
+                  class="field-error"
+                  id="of-address-error"
+                ></span>
+
+              </div>
+
+
+
+              <!-- DATES -->
+
+              <div class="form-row">
+
+
+                <div class="field">
+
+                  <label for="of-wedding-date">
+
+                    Wedding Date
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    type="date"
+                    id="of-wedding-date"
+                    name="weddingDate"
+                    required
+                  >
+
+                  <span
+                    class="field-error"
+                    id="of-wedding-date-error"
+                  ></span>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="of-required-date">
+
+                    Required Date
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    type="date"
+                    id="of-required-date"
+                    name="requiredDate"
+                    required
+                  >
+
+                  <span class="field-hint">
+
+                    The date you need the shoes.
+
+                  </span>
+
+                  <span
+                    class="field-error"
+                    id="of-required-date-error"
+                  ></span>
+
+                </div>
+
+
+              </div>
+
+
+
+              <!-- SHOE SIZE + HEEL HEIGHT -->
+
+              <div class="form-row">
+
+
+                <div class="field">
+
+                  <label for="of-shoe-size">
+
+                    Shoe Size
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <input
+                    type="text"
+                    id="of-shoe-size"
+                    name="shoeSize"
+                    placeholder="Example: EU 38 / UK 5"
+                    required
+                  >
+
+                  <span
+                    class="field-error"
+                    id="of-shoe-size-error"
+                  ></span>
+
+                </div>
+
+
+                <div class="field">
+
+                  <label for="of-heel-height">
+
+                    Heel Height
+                    <span class="required">*</span>
+
+                  </label>
+
+                  <select
+                    id="of-heel-height"
+                    name="heelHeight"
+                    required
+                  >
+
+                    <option
+                      value=""
+                      disabled
+                      selected
+                    >
+                      Select heel height
+                    </option>
+
+                    <option value="Flat">
+                      Flat
+                    </option>
+
+                    <option value='1" (2.5cm)'>
+                      1" (2.5cm)
+                    </option>
+
+                    <option value='1.5" (4cm)'>
+                      1.5" (4cm)
+                    </option>
+
+                    <option value='2" (5cm)'>
+                      2" (5cm)
+                    </option>
+
+                    <option value='2.5" (6cm)'>
+                      2.5" (6cm)
+                    </option>
+
+                    <option value='3" (7.5cm)'>
+                      3" (7.5cm)
+                    </option>
+
+                    <option value='3.5" (9cm)'>
+                      3.5" (9cm)
+                    </option>
+
+                    <option value='4" (10cm)'>
+                      4" (10cm)
+                    </option>
+
+                    <option value='5"+ (12cm+)'>
+                      5"+ (12cm+)
+                    </option>
+
+                    <option value="Not sure">
+                      Not sure — Need advice
+                    </option>
+
+                  </select>
+
+                  <span
+                    class="field-error"
+                    id="of-heel-height-error"
+                  ></span>
+
+                </div>
+
+
+              </div>
+
+
+
+              <!-- OPTIONAL MESSAGE -->
+
+              <div class="field">
+
+                <label for="of-message">
+
+                  Additional Message
+
+                </label>
+
+                <textarea
+                  id="of-message"
+                  name="message"
+                  placeholder="Tell us about your preferred design, colour or any special request..."
+                ></textarea>
+
+              </div>
+
+
+
+              <!-- EMAIL SUBJECT -->
+
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Aurelia Heels Order Enquiry"
+              >
+
+
+              <!-- SPAM PROTECTION -->
+
+              <input
+                type="text"
+                name="website"
+                tabindex="-1"
+                autocomplete="off"
+                style="
+                  position:absolute;
+                  left:-9999px;
+                  width:1px;
+                  height:1px;
+                "
+                aria-hidden="true"
+              >
+
+
+              <!-- SUBMIT -->
+
+              <button
+                type="submit"
+                class="btn"
+                style="
+                  width:100%;
+                  justify-content:center;
+                "
+              >
+                Submit Order Details
+              </button>
+
+
+              <!-- STATUS -->
+
+              <div
+                class="form-status"
+                id="order-form-status"
+                role="status"
+                aria-live="polite"
+              ></div>
+
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =======================================================
+         FAQ
+    ======================================================== -->
+
+    <section
+      id="faq-link"
+      style="
+        background:var(--white);
+        scroll-margin-top:90px;
+      "
+    >
+
+      <div class="container">
+
+
+        <div class="section-head reveal">
+
+          <span class="eyebrow">
+            Good to Know
+          </span>
+
+          <h2>
+            Sizing, Shipping & Returns
+          </h2>
+
+          <span
+            class="stitch"
+            aria-hidden="true"
+          ></span>
+
+        </div>
+
+
+        <div class="faq-list reveal">
+
+
+          <!-- FAQ 1 -->
+
+          <div class="faq-item">
+
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              type="button"
+            >
+
+              How do I find my correct size?
+
+              <span
+                class="plus"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+              <p>
+                Follow the foot tracing steps above,
+                compare your measurement with our size
+                chart, and enter your size in the order
+                form. We can help confirm your size if
+                you're unsure.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- FAQ 2 -->
+
+          <div class="faq-item">
+
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              type="button"
+            >
+
+              How far in advance should I order?
+
+              <span
+                class="plus"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+              <p>
+                We recommend placing your order at least one month in advance to allow time for preparation and delivery. Kindly note that a deposit/advance payment is required to confirm your order.              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- FAQ 3 -->
+
+          <div class="faq-item">
+
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              type="button"
+            >
+
+              Can I customize my bridal shoes?
+
+              <span
+                class="plus"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+              <p>
+                Yes. If you have a specific design,
+                colour or decoration in mind, you can
+                send us a reference photo and we will
+                let you know what customization options
+                are available.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- FAQ 4 -->
+
+          <div class="faq-item">
+
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              type="button"
+            >
+
+              Do you deliver island-wide?
+
+              <span
+                class="plus"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+              <p>
+                Yes! We offer free islandwide delivery across Sri Lanka for your order.
+              </p>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- FAQ 5 -->
+
+          <div class="faq-item">
+
+            <button
+              class="faq-question"
+              aria-expanded="false"
+              type="button"
+            >
+
+              Can I contact you through WhatsApp?
+
+              <span
+                class="plus"
+                aria-hidden="true"
+              ></span>
+
+            </button>
+
+
+            <div class="faq-answer">
+
+              <p>
+                Yes. You can contact Aurelia Heels
+                through WhatsApp for design questions,
+                sizing help and order updates.
+              </p>
+
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+
+        <!-- BRAND -->
+
+        <div class="footer-brand">
+
+          <a
+            href="index.html"
+            class="brand"
+          >
+
+            <img
+              src="images/logo.png"
+              alt="Aurelia Heels logo"
+              width="80"
+              height="80"
+            >
+
+            <span>
+              Aurelia Heels
+            </span>
+
+          </a>
+
+
+          <p>
+            Elegant bridal shoes created to make
+            every beautiful step feel special.
+          </p>
+
+
+          <div class="footer-social">
+
+
+            <a
+              href="https://www.instagram.com/aurelia_heel?igsh=bGw3dHFkZGZ4cXl0"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Aurelia Heels on Instagram"
+            >
+
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+
+                <rect
+                  x="3"
+                  y="3"
+                  width="18"
+                  height="18"
+                  rx="5"
+                />
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="4"
+                />
+
+                <circle
+                  cx="17.2"
+                  cy="6.8"
+                  r="1.1"
+                  fill="currentColor"
+                  stroke="none"
+                />
+
+              </svg>
+
+            </a>
+
+
+            <a
+              href="https://www.facebook.com/share/1GFUaoFxiW/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Aurelia Heels on Facebook"
+            >
+
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+
+                <path
+                  d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v6h4v-6h2.5l.5-4H15V8z"
+                />
+
+              </svg>
+
+            </a>
+
+
+            <a
+              href="https://www.tiktok.com/@aurelia.heels?_r=1&_t=ZS-98vDi9crPIy"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Aurelia Heels on TikTok"
+            >
+
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.6"
+              >
+
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="9"
+                />
+
+                <path
+                  d="M15 4c.3 1.8 1.3 3 3 3.4v2.3c-1.2 0-2.2-.3-3-.8v6.4a5.2 5.2 0 1 1-4.5-5.1v2.5a2.7 2.7 0 1 0 2.1 2.6V4h2.4z"
+                />
+
+              </svg>
+
+            </a>
+
+
+          </div>
+
+        </div>
+
+
+
+        <!-- EXPLORE -->
+
+        <div class="footer-col">
+
+          <h4>
+            Explore
+          </h4>
+
+          <ul>
+
             <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-6-5.7-6-10.5A6 6 0 0 1 12 4a6 6 0 0 1 6 6.5C18 15.3 12 21 12 21z"/><circle cx="12" cy="10.5" r="2"/></svg>
-              <span><strong>Studio Address</strong>24 Horton Place, Colombo 07, Sri Lanka</span>
+              <a href="index.html">
+                Home
+              </a>
             </li>
+
             <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 5h18v14H3z"/><path d="M3 6l9 7 9-7"/></svg>
-              <span><strong>Email</strong><a href="mailto:hello@aureliaheels.com" style="color:inherit;">hello@aureliaheels.com</a></span>
+              <a href="about.html">
+                About
+              </a>
             </li>
+
             <li>
-              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>
-              <span><strong>Phone / WhatsApp</strong><a href="tel:+94112345678" style="color:inherit;">+94 11 234 5678</a></span>
+              <a href="collection.html">
+                Collection
+              </a>
             </li>
+
           </ul>
 
-          <div class="contact-hours">
-            <h4>Atelier Hours</h4>
-            <dl>
-              <dt>Tue&ndash;Fri</dt><dd>10:00 &ndash; 18:00</dd>
-              <dt>Saturday</dt><dd>10:00 &ndash; 16:00</dd>
-              <dt>Sun&ndash;Mon</dt><dd>By appointment only</dd>
-            </dl>
-          </div>
-
-          <div class="map-embed">
-            <iframe
-              title="Map showing the Aurelia Heels atelier location in Colombo"
-              src="https://www.google.com/maps?q=24+Horton+Place,+Colombo+07,+Sri+Lanka&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
         </div>
+
+
+
+        <!-- CARE -->
+
+        <div class="footer-col">
+
+          <h4>
+            Care
+          </h4>
+
+          <ul>
+
+            <li>
+              <a href="contact.html">
+                Contact Us
+              </a>
+            </li>
+
+            <li>
+              <a href="contact.html#faq-link">
+                Sizing Guide
+              </a>
+            </li>
+
+            <li>
+              <a href="contact.html#faq-link">
+                Shipping & Returns
+              </a>
+            </li>
+
+            <li>
+              <a href="contact.html">
+                Place an Order
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+        <!-- REACH US -->
+
+        <div class="footer-col">
+
+          <h4>
+            Reach Us
+          </h4>
+
+          <ul>
+
+            <li>
+              Online Store — Sri Lanka
+            </li>
+
+            <li>
+              aureliaheels8@gmail.com
+            </li>
+
+            <li>
+              Available on WhatsApp
+            </li>
+
+          </ul>
+
+        </div>
+
+
       </div>
 
-      <!-- ---- Form column ---- -->
-      <div class="reveal">
-        <div class="contact-form-card">
-          <span class="eyebrow">Send a Message</span>
-          <h2 style="font-size:1.5rem;">Book a Fitting or Ask a Question</h2>
-          <span class="stitch" aria-hidden="true"></span>
-          <p class="form-note">Fields marked <span class="required">*</span> are required. We never share your details with anyone else.</p>
 
-          <form id="contact-form" novalidate>
-            <div class="form-row">
-              <div class="field">
-                <label for="cf-name">Full Name <span class="required">*</span></label>
-                <input type="text" id="cf-name" name="name" autocomplete="name" required>
-                <span class="field-error" id="cf-name-error"></span>
-              </div>
-              <div class="field">
-                <label for="cf-email">Email Address <span class="required">*</span></label>
-                <input type="email" id="cf-email" name="email" autocomplete="email" required>
-                <span class="field-error" id="cf-email-error"></span>
-              </div>
-            </div>
 
-            <div class="form-row">
-              <div class="field">
-                <label for="cf-phone">Phone Number</label>
-                <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
-                <span class="field-error" id="cf-phone-error"></span>
-              </div>
-              <div class="field">
-                <label for="cf-date">Wedding Date</label>
-                <input type="date" id="cf-date" name="weddingDate">
-                <span class="field-error" id="cf-date-error"></span>
-              </div>
-            </div>
+      <!-- FOOTER BOTTOM -->
 
-            <div class="field">
-              <label for="cf-topic">I'm Enquiring About</label>
-              <select id="cf-topic" name="topic">
-                <option value="fitting">Booking a Fitting</option>
-                <option value="sizing">Sizing Help</option>
-                <option value="custom">Custom Colour / Dye</option>
-                <option value="order">An Existing Order</option>
-                <option value="other">Something Else</option>
-              </select>
-            </div>
+      <div class="footer-bottom">
 
-            <div class="field">
-              <label for="cf-message">Your Message <span class="required">*</span></label>
-              <textarea id="cf-message" name="message" required placeholder="Tell us about your gown, venue, or the style you have in mind..."></textarea>
-              <span class="field-error" id="cf-message-error"></span>
-            </div>
+        <span>
 
-            <div class="checkbox-field">
-              <input type="checkbox" id="cf-consent" name="consent" required>
-              <label for="cf-consent" style="margin:0;text-transform:none;letter-spacing:normal;font-size:0.85rem;">I agree to be contacted by Aurelia Heels about my enquiry. <span class="required">*</span></label>
-            </div>
+          &copy;
+          <span id="year"></span>
+          Aurelia Heels.
+          All rights reserved.
 
-            <button type="submit" class="btn" style="width:100%; justify-content:center;">Send Message</button>
+        </span>
 
-            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
-          </form>
-        </div>
+
+        <span>
+          Made with love for every bride.
+        </span>
+
       </div>
+
 
     </div>
-  </section>
 
-  <!-- ================================= FAQ ================================= -->
-  <section id="faq-link" style="background:var(--white); scroll-margin-top: 90px;">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Good to Know</span>
-        <h2>Sizing, Shipping &amp; Returns</h2>
-        <span class="stitch" aria-hidden="true"></span>
-      </div>
+  </footer>
 
-      <div class="faq-list reveal">
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            How do I find my correct size?
-            <span class="plus" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer">
-            <p>Every product page includes a printable foot-measurement guide. If you're between sizes, our stylists recommend sizing up and adding an insole for a snugger fit — just mention it when you order.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            How far in advance should I order my wedding shoes?
-            <span class="plus" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer">
-            <p>We recommend ordering 8–10 weeks before your wedding date to allow time for made-to-order sizing and any exchanges. Rush production is available for an added fee — just ask.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            What if the fit isn't right on arrival?
-            <span class="plus" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer">
-            <p>Unworn pairs can be exchanged for a different size or style within 30 days of delivery, free of charge. We suggest trying them on a carpeted surface at home before your wedding day.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Do you ship internationally, and how much does it cost?
-            <span class="plus" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes — we ship worldwide from our Colombo studio. International orders typically arrive within 7–14 business days, and tracking is provided at checkout. Shipping cost is calculated at checkout based on destination.</p>
-          </div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            Can I visit the atelier in person?
-            <span class="plus" aria-hidden="true"></span>
-          </button>
-          <div class="faq-answer">
-            <p>Absolutely — book a fitting appointment using the form above and we'll confirm a time that suits you. Walk-ins are welcome but appointments are given priority.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-</main>
 
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="index.html" class="brand">
-          <img src="images/logo.png" alt="Aurelia Heels logo" width="34" height="34">
-          <span>Aurelia Heels</span>
-        </a>
-        <p>Handcrafted bridal shoes in ivory, blush and gold — designed for the whole day, not just the aisle.</p>
-        <div class="footer-social">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Aurelia Heels on Instagram">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg>
-          </a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Aurelia Heels on Facebook">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 8h2V4h-2a4 4 0 0 0-4 4v2H9v4h2v6h4v-6h2.5l.5-4H15V8z"/></svg>
-          </a>
-          <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer" aria-label="Aurelia Heels on Pinterest">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 17c1-3 1.4-5.2 2-8m1 0a3 3 0 1 1 3 3c-.5 1.5-1 2.6-1 2.6"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="collection.html">Collection</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Care</h4>
-        <ul>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="contact.html#faq-link">Sizing Guide</a></li>
-          <li><a href="contact.html#faq-link">Shipping &amp; Returns</a></li>
-          <li><a href="contact.html">Book a Fitting</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Visit the Atelier</h4>
-        <ul>
-          <li>24 Horton Place, Colombo 07, Sri Lanka</li>
-          <li>hello@aureliaheels.com</li>
-          <li>+94 11 234 5678</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; <span id="year"></span> Aurelia Heels. All rights reserved.</span>
-      <span>Handcrafted with care for every bride.</span>
-    </div>
-  </div>
-</footer>
+  <!-- =========================================================
+       WHATSAPP FLOATING BUTTON
 
-<a class="whatsapp-float" href="https://wa.me/94112345678" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.4.1-.2 0-.4 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1.1 2.8c.1.2 1.8 2.8 4.4 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
-</a>
-<button class="back-to-top" aria-label="Back to top">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
+       IMPORTANT:
+       Replace 947XXXXXXXX with your actual WhatsApp number.
+       Format: country code + number, without +
+  ========================================================== -->
 
-<div class="lightbox">
-  <button class="lightbox-close" aria-label="Close image">&times;</button>
-  <img src="" alt="">
-</div>
+  <a
+    class="whatsapp-float"
+    href="https://wa.me/94763717222"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat with Aurelia Heels on WhatsApp"
+  >
 
-<script src="js/script.js"></script>
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
 
-<!--
-  Page-specific script: contact form validation. Self-contained so this
-  page works correctly whether or not js/script.js already includes a
-  contact-form handler — the two won't conflict since this only targets
-  #contact-form.
--->
-<script>
-(function () {
-  'use strict';
+      <path
+        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-2-1.2-.7-.6-1.2-1.4-1.4-1.6-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3.2-.4.1-.2 0-.4 0-.5-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s.9 2.6 1.1 2.8c.1.2 1.8 2.8 4.4 3.8.6.3 1.1.4 1.5.5.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"
+      />
 
-  var form = document.getElementById('contact-form');
-  if (!form) return;
-  var status = document.getElementById('form-status');
+    </svg>
 
-  var validators = {
-    name: function (v) {
-      return v.trim().length >= 2 ? '' : 'Please enter your full name.';
-    },
-    email: function (v) {
-      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return re.test(v.trim()) ? '' : 'Please enter a valid email address.';
-    },
-    phone: function (v) {
-      if (!v.trim()) return ''; // optional
-      var re = /^[0-9+\-\s()]{7,20}$/;
-      return re.test(v.trim()) ? '' : 'Please enter a valid phone number.';
-    },
-    message: function (v) {
-      return v.trim().length >= 10 ? '' : 'Please write at least a short sentence (10+ characters).';
-    },
-    consent: function (v, field) {
-      return field.checked ? '' : 'Please confirm you agree to be contacted.';
-    }
-  };
+  </a>
 
-  function showError(field, message) {
-    var errorEl = document.getElementById(field.id + '-error');
-    if (errorEl) errorEl.textContent = message;
-    field.setAttribute('aria-invalid', message ? 'true' : 'false');
-  }
 
-  function validateField(field) {
-    var validator = validators[field.name];
-    if (!validator) return true;
-    var message = validator(field.value, field);
-    showError(field, message);
-    return !message;
-  }
 
-  Array.prototype.forEach.call(form.elements, function (field) {
-    if (!validators[field.name]) return;
-    field.addEventListener('blur', function () { validateField(field); });
-    field.addEventListener('input', function () {
-      if (field.getAttribute('aria-invalid') === 'true') validateField(field);
-    });
-    field.addEventListener('change', function () {
-      if (field.type === 'checkbox') validateField(field);
-    });
-  });
+  <!-- =========================================================
+       BACK TO TOP
+  ========================================================== -->
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  <button
+    class="back-to-top"
+    aria-label="Back to top"
+    type="button"
+  >
 
-    var isValid = true;
-    Array.prototype.forEach.call(form.elements, function (field) {
-      if (validators[field.name] && !validateField(field)) isValid = false;
-    });
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
 
-    if (!isValid) {
-      status.textContent = 'Please correct the highlighted fields and try again.';
-      status.className = 'form-status is-error';
-      status.style.display = 'block';
-      return;
-    }
+      <path d="M12 19V5"/>
 
-    /* ------------------------------------------------------------------
-       TODO: connect to a real backend (Formspree, EmailJS, or your own
-       serverless endpoint). Example using Formspree:
+      <path d="M5 12l7-7 7 7"/>
 
-         fetch('https://formspree.io/f/yourFormId', {
-           method: 'POST',
-           body: new FormData(form),
-           headers: { Accept: 'application/json' }
-         }).then(...)
+    </svg>
 
-       This static demo simulates a successful submission instead.
-    ------------------------------------------------------------------ */
-    status.textContent = 'Thank you! Your message has been sent. A stylist will reply within 24 hours.';
-    status.className = 'form-status is-success';
-    status.style.display = 'block';
-    form.reset();
-  });
-})();
-</script>
+  </button>
+
+
+
+  <!-- =========================================================
+       MAIN JAVASCRIPT
+  ========================================================== -->
+
+  <script src="js/script.js"></script>
+
+
 </body>
+
 </html>

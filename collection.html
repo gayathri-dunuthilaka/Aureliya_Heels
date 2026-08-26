@@ -25,6 +25,241 @@
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/responsive.css">
+
+<!--
+  ============================================================================
+  NEW / CHANGED CSS — scoped to this page only, layered on top of the
+  existing css/style.css and css/responsive.css without editing those files.
+
+  Covers:
+  1. The "More Details" product modal (image carousel + text panel)
+     — description now renders as a bulleted line-by-line list
+     — every modal now shows a fixed "this design is customisable" note
+  2. The "Custom Designs" CTA tile added at the end of the collection grid
+  ============================================================================
+-->
+<style>
+  /* ---------------------------------------------------------------------
+     1. PRODUCT DETAILS MODAL
+     --------------------------------------------------------------------- */
+  .product-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+  .product-modal.is-open { opacity: 1; visibility: visible; }
+
+  .product-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(58, 46, 43, 0.72);
+  }
+
+  .product-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 880px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--white, #fff);
+    border-radius: 14px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+    transform: translateY(16px);
+    transition: transform 0.3s ease;
+  }
+  .product-modal.is-open .product-modal-dialog { transform: translateY(0); }
+
+  @media (max-width: 720px) {
+    .product-modal-dialog { grid-template-columns: 1fr; max-height: 92vh; }
+  }
+
+  .product-modal-close {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.7rem;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(58,46,43,0.55);
+    color: #fff;
+    font-size: 1.3rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .product-modal-close:hover { background: var(--gold, #c6a15b); }
+
+  /* --- Image carousel --- */
+  .product-modal-media {
+    position: relative;
+    background: #f3ece4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+    overflow: hidden;
+  }
+  .product-modal-media img {
+    width: 100%;
+    height: 100%;
+    max-height: 90vh;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pm-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.85);
+    color: var(--plum, #3a2e2b);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+  }
+  .pm-arrow:hover { background: var(--gold, #c6a15b); color: #fff; }
+  .pm-prev { left: 0.8rem; }
+  .pm-next { right: 0.8rem; }
+  /* Hide arrows automatically when a design only has one photo */
+  .product-modal-media[data-count="1"] .pm-arrow,
+  .product-modal-media[data-count="1"] .pm-dots {
+    display: none;
+  }
+
+  .pm-dots {
+    position: absolute;
+    bottom: 0.9rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.4rem;
+  }
+  .pm-dots button {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    padding: 0;
+  }
+  .pm-dots button[aria-selected="true"] { background: var(--gold, #c6a15b); }
+
+  /* --- Text panel --- */
+  .product-modal-info {
+    padding: 2.2rem 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-modal-info .quick-tag {
+    align-self: flex-start;
+    margin-bottom: 0.8rem;
+  }
+  .product-modal-info h3 {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: 1.6rem;
+    margin-bottom: 0.3rem;
+  }
+  .product-modal-info .price {
+    color: var(--gold-deep, var(--gold, #a8823d));
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  /* Line-by-line description list (Color / Heel height / Style / etc.) */
+  .product-modal-info .pm-desc-list {
+    list-style: none;
+    margin: 0 0 1.4rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .product-modal-info .pm-desc-list li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--plum-soft, #6b5a52);
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+  .product-modal-info .pm-desc-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold, #c6a15b);
+  }
+
+  /* Fixed "this design is customisable" note shown in every modal */
+  .pm-custom-note {
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--plum, #3a2e2b);
+    background: #fbf7f2;
+    border-left: 3px solid var(--gold, #c6a15b);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    margin-bottom: 1.6rem;
+  }
+
+  .product-modal-info .btn { align-self: flex-start; }
+
+  /* ---------------------------------------------------------------------
+     2. CUSTOM DESIGNS TILE (last item in the collection grid)
+     --------------------------------------------------------------------- */
+  .custom-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2.4rem 1.6rem;
+    background: linear-gradient(160deg, #fbf7f2, #f3e3e0);
+    border: 1px dashed var(--gold, #c6a15b);
+    border-radius: 10px;
+    min-height: 100%;
+  }
+  .custom-tile .icon {
+    width: 46px;
+    height: 46px;
+    margin-bottom: 1rem;
+    color: var(--gold-deep, var(--gold, #a8823d));
+  }
+  .custom-tile h3 {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+  .custom-tile p {
+    color: var(--plum-soft, #6b5a52);
+    font-size: 0.92rem;
+    margin-bottom: 1.4rem;
+  }
+</style>
 </head>
 <body>
 
@@ -48,7 +283,6 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="collection.html" aria-current="page">Collection</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -58,6 +292,8 @@
   </div>
 </header>
 <div class="nav-scrim"></div>
+
+<!-- =================================== Collection ================================== -->
 
 <main id="main">
 
@@ -76,114 +312,377 @@
       <div class="gallery-filters reveal" role="group" aria-label="Filter by category">
         <button type="button" class="is-active" data-filter="all">All Styles</button>
         <button type="button" data-filter="heels">Heels</button>
-        <button type="button" data-filter="block">Block Heels</button>
         <button type="button" data-filter="flats">Flats</button>
+        <button type="button" data-filter="red">Red Heels</button>
       </div>
 
       <div class="grid grid-4">
 
+        <!--
+          Each card uses a "More Details" button. The data-images attribute
+          accepts a comma-separated list of photo paths — the popup shows
+          left/right arrows and dots automatically whenever there's more
+          than one image; with a single image they hide themselves.
+
+          The data-desc attribute now accepts PIPE-separated ( | ) lines,
+          so the popup renders each one as its own bullet point instead of
+          a single paragraph — e.g.
+            data-desc="Color: Off White|Heel height: 4in|Style: Block heel"
+        -->
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <span class="quick-tag">New</span>
+            <img src="images/1.png" alt="Design 0001 — off white bridal heel with gold stones" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0001</h3>
+            <p class="price">LKR6500</p>
+            <p class="desc">Off White with gold stones 3&Prime; block heel.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/1(2).jpeg, images/1(1).jpeg, images/1(3).jpeg, images/1(4).jpeg, images/1.png"
+              data-title="Design 0001"
+              data-price="LKR6500"
+              data-tag="New"
+              data-desc="Color: Off White with gold stones|Heel height: 3&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
+          </div>
+        </article>
+
+
         <article class="shoe-card reveal" data-category="heels">
           <div class="thumb">
             <span class="quick-tag">Bestseller</span>
-            <img src="images/shoe1.jpg" alt="The Rosalind ivory satin pointed-toe bridal heel" width="500" height="625" loading="lazy">
+            <img src="images/4.png" alt="Design 0002 — off white bridal heel with gold stones" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Rosalind</h3>
-            <p class="price">$248</p>
-            <p class="desc">Ivory satin, 3.3&Prime; sculpted heel, cushioned footbed, pointed toe.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0002</h3>
+            <p class="price">LKR7700</p>
+            <p class="desc">Off White with gold stones 4&Prime; block heel.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/4(2).jpeg, images/4(1).jpeg, images/4(3).jpeg, images/4.png"
+              data-title="Design 0002"
+              data-price="LKR7700"
+              data-tag="Bestseller"
+              data-desc="Color: Off White with gold stones|Heel height: 4&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
           </div>
         </article>
 
         <article class="shoe-card reveal" data-category="block">
           <div class="thumb">
             <span class="quick-tag">New</span>
-            <img src="images/shoe2.jpg" alt="The Celestine blush block-heel bridal shoe with gold buckle" width="500" height="625" loading="lazy">
+            <img src="images/2.png" alt="Design 0003 — off white block-heel bridal shoe with gold buckle" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Celestine</h3>
-            <p class="price">$212</p>
-            <p class="desc">Blush crepe, 2&Prime; block heel, gold buckle, all-night stability.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0003</h3>
+            <p class="price">LKR5800</p>
+            <p class="desc">Off White with gold stones 2&Prime; box heel.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/2.png, images/2(2).jpeg, images/2(3).jpeg, images/2(4).jpeg, images/2(5).jpeg"
+              data-title="Design 0003"
+              data-price="LKR5800"
+              data-tag="New"
+              data-desc="Color: Off White with gold stones|Heel height: 2&Prime; box heel|Made to order in your size">
+              More Details
+            </button>
           </div>
         </article>
 
-        <article class="shoe-card reveal" data-category="heels">
+        <article class="shoe-card reveal" data-category="red">
           <div class="thumb">
-            <span class="quick-tag">Limited</span>
-            <img src="images/shoe3.jpg" alt="The Delphine gold-trimmed lace bridal heel" width="500" height="625" loading="lazy">
+            <span class="quick-tag">Meroon</span>
+            <img src="images/14 (6).png" alt="Design 0004 — maroon pearl bridal heel with gold stones" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Delphine</h3>
-            <p class="price">$268</p>
-            <p class="desc">French lace overlay, gold piping, 3.6&Prime; heel, hidden platform.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0004</h3>
+            <p class="price">LKR5800</p>
+            <p class="desc">Mreoon pearls with gold stones 1.5&Prime; box heel. half shoe.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/14 (6).png, images/14 (1).jpeg, images/14 (2).jpeg, images/14 (3).jpeg, images/14 (5).jpeg, images/14 (4).jpeg"
+              data-title="Design 0004"
+              data-price="LKR5800"
+              data-tag="Meroon"
+              data-desc="Color: Maroon pearls with gold stones|Heel height: 1.5&Prime; box heel|Style: Half-shoe silhouette">
+              More Details
+            </button>
           </div>
         </article>
 
         <article class="shoe-card reveal" data-category="flats">
           <div class="thumb">
             <span class="quick-tag">Flats</span>
-            <img src="images/shoe4.jpg" alt="The Margaux ivory ballet flat with ribbon ties" width="500" height="625" loading="lazy">
+            <img src="images/07 - New design.png" alt="Design 0005 — off white pearl flat bridal shoe" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Margaux</h3>
-            <p class="price">$186</p>
-            <p class="desc">Ballet flat, satin ribbon ties, foldable travel pouch included.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0005</h3>
+            <p class="price">LKR5500</p>
+            <p class="desc">Off White pearls with gold stone, flat</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/07 - New design.png, images/07 (1).jpeg, images/07 (3).jpeg, images/07 (4).jpeg, images/07 (2).jpeg"
+              data-title="Design 0005"
+              data-price="LKR5500"
+              data-tag="Flats"
+              data-desc="Color: Off White pearls with gold stone detailing|Heel height: Flat sole">
+              More Details
+            </button>
           </div>
         </article>
 
         <article class="shoe-card reveal" data-category="heels">
           <div class="thumb">
             <span class="quick-tag">Evening</span>
-            <img src="images/gallery1.jpg" alt="The Odette gold strappy bridal sandal heel" width="500" height="625" loading="lazy">
+            <img src="images/5.png" alt="Design 0006 — pure white bridal sandal heel with silver stones" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Odette</h3>
-            <p class="price">$232</p>
-            <p class="desc">Gold strappy sandal, 3&Prime; heel, ideal for reception dancing.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0006</h3>
+            <p class="price">LKR6900</p>
+            <p class="desc">Pure White with silver stones 3.5&Prime; block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/5.png, images/05 (1).jpeg, images/05 (2).jpeg, images/05 (3).jpeg, images/05 (4).jpeg, images/05 (5).jpeg"
+              data-title="Design 0006"
+              data-price="LKR6900"
+              data-tag="Evening"
+              data-desc="Color: Pure White with silver stones|Heel height: 3.5&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
           </div>
         </article>
 
-        <article class="shoe-card reveal" data-category="block">
+        <article class="shoe-card reveal" data-category="heels">
           <div class="thumb">
-            <span class="quick-tag">Garden</span>
-            <img src="images/gallery2.jpg" alt="The Amara ivory wedge-block heel for outdoor ceremonies" width="500" height="625" loading="lazy">
+            <img src="images/6.png" alt="Design 0007 — pure white wedge-block heel for outdoor ceremonies" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Amara</h3>
-            <p class="price">$224</p>
-            <p class="desc">Wide wedge-block heel, ivory linen, made for grass and gravel aisles.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0007</h3>
+            <p class="price">LKR6100</p>
+            <p class="desc">Pure White with silver stones 2.5&Prime; block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/6.png, images/6(1).png, images/6(2).png, images/6(3).png, images/6(4).png, images/6(5).png, images/6(6).png"
+              data-title="Design 0007"
+              data-price="LKR6100"
+              data-desc="Color: Pure White with silver stones|Heel height: 2.5&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
           </div>
         </article>
 
-        <article class="shoe-card reveal" data-category="flats">
+
+        <article class="shoe-card reveal" data-category="heels">
           <div class="thumb">
-            <span class="quick-tag">Reception</span>
-            <img src="images/gallery3.jpg" alt="The Juliet blush ballet flat with pearl buckle" width="500" height="625" loading="lazy">
+            <img src="images/08 - New design.png" alt="Design 0008 — gold bridal heel with off-white pearls" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Juliet</h3>
-            <p class="price">$168</p>
-            <p class="desc">Blush suede flat, pearl buckle, ideal change-of-shoe for dancing.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0008</h3>
+            <p class="price">LKR8300</p>
+            <p class="desc">Gold with off-white pearls 5&Prime; block heel style.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/08 - New design.png, images/8(1).png, images/8(2).jpeg, images/8(3).jpeg"
+              data-title="Design 0008"
+              data-price="LKR8300"
+              data-desc="Color: Gold with off-white pearls|Heel height: 5&Prime; block heel|Style: Statement piece for the reception">
+              More Details
+            </button>
+          </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="red">
+          <div class="thumb">
+            <img src="images/9.png" alt="Design 0009 — red bridal heel with silver stones" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0009</h3>
+            <p class="price">LKR7100</p>
+            <p class="desc">Color - Red pearls with silver stones 3.5&Prime; Red color block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/9.png, images/9(1).png, images/9(2).png, images/9(3).png, images/9(4).png"
+              data-title="Design 0009"
+              data-price="LKR7100"
+              data-desc="Color: Red pearls with silver stones|Heel height: 3.5&Prime;|Style: Red colour block heel">
+              More Details
+            </button>
           </div>
         </article>
 
         <article class="shoe-card reveal" data-category="heels">
           <div class="thumb">
             <span class="quick-tag">Signature</span>
-            <img src="images/gallery4.jpg" alt="The Seraphine ivory heel with hand-embroidered gold thread" width="500" height="625" loading="lazy">
+            <img src="images/10 - New design.png" alt="Design 0010 — pure white bridal heel with gold stones and X straps" width="500" height="625" loading="lazy">
           </div>
           <div class="info">
-            <h3>The Seraphine</h3>
-            <p class="price">$298</p>
-            <p class="desc">Hand-embroidered gold thread, 3.5&Prime; heel, our most detailed style.</p>
-            <a href="contact.html" class="btn btn-outline">Enquire &amp; Order</a>
+            <h3>Design 0010</h3>
+            <p class="price">LKR7100</p>
+            <p class="desc">Pure White with gold stones 3.5&Prime; block heel with X straps</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/10 - New design.png, images/10 (1).jpeg, images/10 (2).jpeg, images/10 (3).jpeg, images/10 (3).jpeg, images/10 (4).jpeg"
+              data-title="Design 0010"
+              data-price="LKR7100"
+              data-tag="Signature"
+              data-desc="Color: Pure White with gold stones|Heel height: 3.5&Prime; block heel|Style: Elegant X straps">
+              More Details
+            </button>
           </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <span class="quick-tag">Signature</span>
+            <img src="images/11 - New design.png" alt="Design 0011 — hand-embroidered gold thread bridal heel" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0011</h3>
+            <p class="price">LKR 8300</p>
+            <p class="desc">Hand-embroidered gold thread, 5.5&Prime; point heel, our most detailed style.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/11 - New design.png, images/11 (2).jpeg, images/11 (3).jpeg, images/11 (4).jpeg, images/11 (5).jpeg, images/11 (6).jpeg"
+              data-title="Design 0011"
+              data-price="LKR 8300"
+              data-tag="Signature"
+              data-desc="Detail: Hand-embroidered gold thread|Heel height: 5.5&Prime; point heel|Style: Our most detailed design">
+              More Details
+            </button>
+          </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <img src="images/13(3).jpeg" alt="Design 0012 — off white block heel " width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0012</h3>
+            <p class="price">LKR6500</p>
+            <p class="desc">Off White 3&Prime; block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/13(3).jpeg, images/13(1).jpeg, images/13(2).jpeg, images/13(4).jpeg, images/13.jpeg,"
+              data-title="Design 0012"
+              data-price="LKR6500"
+              data-desc="Color: Off White|Heel height: 3&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
+          </div>
+        </article>
+
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <span class="quick-tag">Signature</span>
+            <img src="images/15 (3).jpeg" alt="Design 0013 — Off-white heel with gold stone" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0013</h3>
+            <p class="price">LKR5600</p>
+            <p class="desc">Off-white color, Gold stones 1.5&Prime; half shoe, block heel.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/15 (3).jpeg, images/15 (1).jpeg, images/15 (2).jpeg, images/15 (4).jpeg, images/15 (5).jpeg, images/15(6).jpeg"
+              data-title="Design 0013"
+              data-price="LKR5600"
+              data-tag="Signature"
+              data-desc="Color: Off-white with gold stones|Heel height: 1.5&Prime; block heel|Style: Half-shoe">
+              More Details
+            </button>
+          </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="red">
+          <div class="thumb">
+            <span class="quick-tag">Signature</span>
+            <img src="images/16-2.jpeg" alt="Design 0014 — Pink half shoes bridal heel" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0014</h3>
+            <p class="price">LKR5500</p>
+            <p class="desc">Pink half shoes 3&Prime; block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/16-2.jpeg, images/16-3.jpeg, images/16-1.png, images/16-4.jpeg"
+              data-title="Design 0014"
+              data-price="LKR5500"
+              data-tag="Signature"
+              data-desc="Color: Pink half shoes|Heel height: 3&Prime; block heel">
+              More Details
+            </button>
+          </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <span class="quick-tag">Signature</span>
+            <img src="images/17 (6).jpeg" alt="Design 0015 — pure white bridal heel with silver stones and Our most detailed design" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0015</h3>
+            <p class="price">LKR7100</p>
+            <p class="desc">Pure White with silver stones 3.5&Prime; block heel with Our most detailed design</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/17 (5).jpeg, images/17 (1).jpeg, images/17 (2).jpeg, images/17 (6).jpeg, images/17 (3).jpeg, images/17 (4).jpeg"
+              data-title="Design 0015"
+              data-price="LKR7100"
+              data-tag="Signature"
+              data-desc="Color: Pure White with silver stones|Heel height: 3.5&Prime; block heel|Style: Our most detailed design">
+              More Details
+            </button>
+          </div>
+        </article>
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <img src="images/18 (1).jpeg" alt="Design 0018 — Pure white with Block heel" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0018</h3>
+            <p class="price">LKR6500</p>
+            <p class="desc">Pure White 3&Prime; block heel</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/18 (1).jpeg, images/18 (2).jpeg, images/18.png"
+              data-title="Design 0018"
+              data-price="LKR6500"
+              data-desc="Color: Pure White|Heel height: 3&Prime; block heel|Made to order in your size">
+              More Details
+            </button>
+          </div>
+        </article>
+
+
+        <article class="shoe-card reveal" data-category="heels">
+          <div class="thumb">
+            <span class="quick-tag">Meroon</span>
+            <img src="images/19 (1).jpeg" alt="Design 00019 — off-white pearl bridal heel with gold stones" width="500" height="625" loading="lazy">
+          </div>
+          <div class="info">
+            <h3>Design 0019</h3>
+            <p class="price">LKR5800</p>
+            <p class="desc">Off-white pearls with gold stones 1.5&Prime; box heel. half shoe.</p>
+            <button type="button" class="btn btn-outline more-details-btn"
+              data-images="images/19 (1).jpeg, images/19 (2).jpeg, images/19 (6).jpeg, images/19 (3).jpeg, images/19 (5).jpeg, images/19 (4).jpeg"
+              data-title="Design 0019"
+              data-price="LKR5800"
+              data-tag="heels"
+              data-desc="Color: Off-white pearls with gold stones|Heel height: 1.5&Prime; box heel|Style: Half-shoe silhouette">
+              More Details
+            </button>
+          </div>
+        </article>
+
+
+        <!--
+          ============================================================
+          CUSTOM DESIGNS TILE — sits as the last item in the grid,
+          telling customers they can order a fully custom design too.
+          It has no data-category, so it always shows under "All
+          Styles" but is hidden by the existing filter script whenever
+          a specific category (Heels / Block Heels / Flats / Red
+          Heels) is selected — exactly like the other cards behave
+          when they don't match the active filter.
+          ============================================================
+        -->
+        <article class="shoe-card reveal custom-tile" data-category="custom">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M12 2l2.6 6.2L21 9l-5 4.4L17.3 20 12 16.6 6.7 20 8 13.4 3 9l6.4-.8z"/>
+          </svg>
+          <h3>Have a Design in Mind?</h3>
+          <p>We also craft fully custom bridal shoes — share your own sketch, photo, or idea and our stylists will bring it to life, made to your size.</p>
+          <a href="contact.html" class="btn btn-outline">Start a Custom Order</a>
         </article>
 
       </div>
@@ -233,8 +732,7 @@
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="collection.html">Collection</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
-        </ul>
+       </ul>
       </div>
       <div class="footer-col">
         <h4>Care</h4>
@@ -268,6 +766,165 @@
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 
+<!--
+  ============================================================================
+  Product details modal markup. One shared modal is populated and reused
+  for whichever "More Details" button was clicked.
+
+  - #pm-desc is now a <ul>, filled with one <li> per pipe-separated line
+    from the clicked card's data-desc attribute.
+  - The customisation note (colors / shoe model / size / heel height) is
+    static markup here, so it appears identically in every popup without
+    needing to be repeated in each card's data attributes.
+  ============================================================================
+-->
+<div class="product-modal" id="product-modal" aria-hidden="true">
+  <div class="product-modal-overlay" data-close></div>
+  <div class="product-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+    <button class="product-modal-close" type="button" aria-label="Close details" data-close>&times;</button>
+
+    <div class="product-modal-media" id="pm-media">
+      <button class="pm-arrow pm-prev" type="button" aria-label="Previous image">&#10094;</button>
+      <img id="pm-image" src="" alt="">
+      <button class="pm-arrow pm-next" type="button" aria-label="Next image">&#10095;</button>
+      <div class="pm-dots" id="pm-dots"></div>
+    </div>
+
+    <div class="product-modal-info">
+      <span class="quick-tag" id="pm-tag"></span>
+      <h3 id="pm-title"></h3>
+      <p class="price" id="pm-price"></p>
+
+      <ul class="pm-desc-list" id="pm-desc"></ul>
+
+      <p class="pm-custom-note">
+        &#10024; This design's <strong>colors</strong>, <strong>shoe model</strong>, <strong>size</strong> and <strong>heel height</strong> can all be customised to your preference — just let us know when you enquire.
+      </p>
+
+      <a href="contact.html" class="btn" id="pm-enquire">Enquire &amp; Order</a>
+    </div>
+  </div>
+</div>
+
 <script src="js/script.js"></script>
+
+<!--
+  ============================================================================
+  NEW / CHANGED JS — self-contained, only targets the new modal and the
+  ".more-details-btn" buttons, so it can't conflict with anything already
+  in js/script.js (loader, nav, reveal, filters, etc. keep working as-is).
+
+  Changed: the description is now split on the pipe character ( | ) and
+  rendered as individual <li> bullet points instead of one paragraph.
+  ============================================================================
+-->
+<script>
+(function () {
+  'use strict';
+
+  var modal      = document.getElementById('product-modal');
+  var mediaWrap   = document.getElementById('pm-media');
+  var imageEl     = document.getElementById('pm-image');
+  var dotsWrap    = document.getElementById('pm-dots');
+  var tagEl       = document.getElementById('pm-tag');
+  var titleEl     = document.getElementById('pm-title');
+  var priceEl     = document.getElementById('pm-price');
+  var descEl      = document.getElementById('pm-desc'); // now a <ul>
+  var prevBtn     = modal.querySelector('.pm-prev');
+  var nextBtn     = modal.querySelector('.pm-next');
+
+  var images = [];
+  var current = 0;
+  var lastFocused = null;
+
+  function renderImage() {
+    imageEl.src = images[current];
+    imageEl.alt = titleEl.textContent + ' — image ' + (current + 1) + ' of ' + images.length;
+    mediaWrap.setAttribute('data-count', images.length);
+
+    // Rebuild dots to match current image count
+    dotsWrap.innerHTML = '';
+    images.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Show image ' + (i + 1));
+      dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      dot.addEventListener('click', function () { current = i; renderImage(); });
+      dotsWrap.appendChild(dot);
+    });
+  }
+
+  // Splits "Color: X|Heel height: Y|Style: Z" into individual <li> bullets
+  function renderDescList(raw) {
+    descEl.innerHTML = '';
+    var lines = (raw || '')
+      .split('|')
+      .map(function (s) { return s.trim(); })
+      .filter(Boolean);
+
+    lines.forEach(function (line) {
+      var li = document.createElement('li');
+      li.textContent = line;
+      descEl.appendChild(li);
+    });
+  }
+
+  function showNext() { current = (current + 1) % images.length; renderImage(); }
+  function showPrev() { current = (current - 1 + images.length) % images.length; renderImage(); }
+
+  function openModal(btn) {
+    lastFocused = document.activeElement;
+
+    // Parse the comma-separated list of image paths for this design
+    images = (btn.getAttribute('data-images') || '')
+      .split(',')
+      .map(function (s) { return s.trim(); })
+      .filter(Boolean);
+    current = 0;
+
+    tagEl.textContent   = btn.getAttribute('data-tag') || '';
+    tagEl.style.display = btn.getAttribute('data-tag') ? '' : 'none';
+    titleEl.textContent = btn.getAttribute('data-title') || '';
+    priceEl.textContent = btn.getAttribute('data-price') || '';
+    renderDescList(btn.getAttribute('data-desc'));
+
+    renderImage();
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modal.querySelector('.product-modal-close').focus();
+  }
+
+  function closeModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (lastFocused) lastFocused.focus();
+  }
+
+  // Wire up every "More Details" button on the page
+  document.querySelectorAll('.more-details-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { openModal(btn); });
+  });
+
+  // Close on overlay click / close button
+  modal.querySelectorAll('[data-close]').forEach(function (el) {
+    el.addEventListener('click', closeModal);
+  });
+
+  // Arrow navigation
+  nextBtn.addEventListener('click', showNext);
+  prevBtn.addEventListener('click', showPrev);
+
+  // Keyboard support: Escape to close, Left/Right to navigate
+  document.addEventListener('keydown', function (e) {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeModal();
+    if (e.key === 'ArrowRight') showNext();
+    if (e.key === 'ArrowLeft') showPrev();
+  });
+})();
+</script>
 </body>
 </html>
